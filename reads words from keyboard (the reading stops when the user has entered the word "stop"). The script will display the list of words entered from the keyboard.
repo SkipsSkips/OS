@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Step 1: Initialize an empty array to store words
+words=()
+
+# Step 2: Read words from the keyboard until "stop" is entered
+while true; do
+  read -p "Enter a word (type 'stop' to finish): " word
+  if [ "$word" = "stop" ]; then
+    break
+  fi
+  words+=("$word")
+done
+
+# Step 3: Display the list of words entered
+echo "Words entered:"
+for w in "${words[@]}"; do
+  echo "$w"
+done
