@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Step 1: Get the current month and year in the format 'Jun 2025'
+current_month=$(date +"%b")
+current_year=$(date +"%Y")
+
+# Step 2: Read usernames from the keyboard in a loop
+while true; do
+  read -p "Enter a username (or type 'end' to finish): " user
+
+  # Allow user to end input
+  if [ "$user" = "end" ]; then
+    break
+  fi
+
+  # Step 3: Count logins for the current month and year using 'last'
+  # The 'last' command output shows login records, e.g.:
+  # username  pts/X    ....  Mon Jun  1 09:00   still logged in
+  login_count=$(last "$user" | awk -v m="$current_month" -v y="$current_year" '
+    $5 == m && $7 == y {count++}
+    END {print count+0}
+  ')
+
+  # Step 4: Display result
+  if [ "$login_count" -eq 0 ]; then
+    echo "User $user has never logged in during the current month"
+  else
+    echo "User $user has logged in $login_count times during $current_month $current_year"
+  fi
+done
