@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Step 1: Check if exactly two arguments are provided
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 num1 num2"
+  exit 1
+fi
+
+# Step 2: Assign the arguments to variables
+num1=$1
+num2=$2
+
+# Step 3: Calculate the sum, difference, and product
+sum=$((num1 + num2))
+diff=$((num1 - num2))
+prod=$((num1 * num2))
+
+# Step 4: Display the results
+echo "Sum: $sum"
+echo "Difference: $diff"
+echo "Product: $prod"
