@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Step 1: Check for exactly two arguments
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 file1 file2"
+  exit 1
+fi
+
+file1="$1"
+file2="$2"
+
+# Step 2: Check if both files exist
+if [ ! -f "$file1" ] || [ ! -f "$file2" ]; then
+  echo "Both files must exist."
+  exit 1
+fi
+
+# Step 3: Initialize a counter for differing lines
+diff_count=0
+
+# Step 4: Use 'paste' to combine lines, read line by line
+paste "$file1" "$file2" | while IFS=$'\t' read -r line1 line2; do
+  if [ "$line1" != "$line2" ]; then
+    diff_count=$((diff_count + 1))
+    echo "Difference at line $((diff_count)): "
+    echo "File1: $line1"
+    echo "File2: $line2"
+    echo ""
+    if [ "$diff_count" -eq 3 ]; then
+      break
+    fi
+  fi
+done
