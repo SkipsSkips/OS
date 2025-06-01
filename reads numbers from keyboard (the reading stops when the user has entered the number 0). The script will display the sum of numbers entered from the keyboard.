@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Step 1: Initialize the sum variable
+sum=0
+
+# Step 2: Start an infinite loop to read numbers
+while true; do
+  # Step 3: Prompt the user for input
+  read -p "Enter a number (0 to stop): " num
+
+  # Step 4: Check if the input is a valid integer
+  if ! [[ "$num" =~ ^-?[0-9]+$ ]]; then
+    echo "Please enter a valid integer."
+    continue
+  fi
+
+  # Step 5: If the number is 0, break the loop
+  if [ "$num" -eq 0 ]; then
+    break
+  fi
+
+  # Step 6: Add the input to the sum
+  sum=$((sum + num))
+done
+
+# Step 7: Display the total sum
+echo "The sum of the numbers entered is: $sum"
